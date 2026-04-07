@@ -14,7 +14,6 @@ import {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const publicDir = path.join(__dirname, "public");
-const vendorDir = path.join(__dirname, "node_modules");
 const logsDir = path.join(__dirname, "logs");
 const clientLogFile = path.join(logsDir, "client-events.log");
 const generatedDir = path.join(__dirname, "generated");
@@ -129,11 +128,6 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (req.method === "GET") {
-      if (url.pathname.startsWith("/vendor/")) {
-        const vendorPath = url.pathname.replace("/vendor/", "");
-        return serveStaticFrom(res, vendorDir, vendorPath);
-      }
-
       if (url.pathname.startsWith("/generated/")) {
         const generatedPath = url.pathname.replace("/generated/", "");
         return serveStaticFrom(res, generatedDir, generatedPath);
