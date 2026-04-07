@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NexEras 3D Learning Pipeline</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "/vendor/three/build/three.module.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">NexEras Training Prototype</p>
+          <h1>Turn text or images into interactive 3D learning objects.</h1>
+          <p class="lede">
+            This prototype classifies a prompt or image, generates a normalized GLB, and pairs it with a concise training summary.
+          </p>
+        </div>
+        <div class="status" id="apiStatus">Checking AI availability...</div>
+      </section>
+
+      <section class="workspace">
+        <form id="pipelineForm" class="panel controls">
+          <label class="field">
+            <span>Describe the object</span>
+            <textarea id="prompt" rows="4" placeholder="Example: a yellow hard hat used on a construction site"></textarea>
+          </label>
+
+          <label class="field upload">
+            <span>Or upload an image</span>
+            <input id="imageInput" type="file" accept="image/*" />
+          </label>
+          <p class="form-error" id="formError" hidden>Enter a description or upload an image before generating.</p>
+
+          <button class="primary" type="submit">Generate Learning Asset</button>
+
+          <div class="tips">
+            <strong>Supported starter objects:</strong> hard hat, helmet, hammer, wrench, screwdriver, cone, barrel, crate.
+          </div>
+        </form>
+
+        <section class="panel viewer-panel">
+          <canvas id="viewerCanvas"></canvas>
+          <p class="viewer-note" id="viewerNote">Interactive viewer ready.</p>
+          <div class="viewer-mode">
+            <span>Viewer Mode</span>
+            <button type="button" data-viewer-mode="primary" class="active">Primary 3D</button>
+            <button type="button" data-viewer-mode="legacy">Legacy Preview</button>
+          </div>
+          <div class="viewer-toolbar">
+            <button type="button" data-action="reset">Reset View</button>
+            <button type="button" data-action="spin">Toggle Spin</button>
+            <button type="button" data-action="lift">Raise Model</button>
+          </div>
+        </section>
+      </section>
+
+      <section class="panel output">
+        <div class="output-head">
+          <h2>Module Output</h2>
+          <span id="objectType">No object generated yet</span>
+        </div>
+        <p id="summary">Submit a text prompt or image to generate a training-ready 3D object.</p>
+        <div class="meta" id="processingMeta"></div>
+        <div class="exports">
+          <button type="button" id="downloadGlb" disabled>Download GLB</button>
+          <button type="button" id="downloadJson" disabled>Download Module JSON</button>
+        </div>
+      </section>
+
+      <section class="panel learning-panel">
+        <div class="output-head">
+          <h2>Learning Notes</h2>
+          <span id="learningMode">Waiting for generated content</span>
+        </div>
+        <div class="learning-grid">
+          <article class="learning-card">
+            <h3>Key Uses</h3>
+            <ul id="keyUses">
+              <li>Generate an object to populate teaching cues and guided activities.</li>
+            </ul>
+          </article>
+          <article class="learning-card">
+            <h3>Safety Note</h3>
+            <p id="safetyNote">Safety guidance will appear here after generation.</p>
+          </article>
+          <article class="learning-card">
+            <h3>Quiz Prompt</h3>
+            <p id="quizQuestion">A quick learner check will appear here after generation.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+  </html>
